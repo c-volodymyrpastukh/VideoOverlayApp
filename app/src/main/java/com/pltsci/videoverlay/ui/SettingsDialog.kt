@@ -33,6 +33,7 @@ fun SettingsDialog(
     var dimensionText by remember { mutableStateOf(currentSettings.dimension.toString()) }
     var imageUrl by remember { mutableStateOf(if(currentSettings.imageUrl.isEmpty()) "https://apptweak-blog.imgix.net/2025/04/1-Headspace-AS.PNG" else currentSettings.imageUrl) }
     var dimensionError by remember { mutableStateOf(false) }
+    var showScenarioEditor by remember { mutableStateOf(false) }
     val clipboardManager = LocalClipboardManager.current
 
     AlertDialog(
@@ -72,6 +73,9 @@ fun SettingsDialog(
                         Text("Paste")
                     }
                 }
+                TextButton(onClick = { showScenarioEditor = true }) {
+                    Text("Configure Scenario", fontSize = 18.sp)
+                }
             }
         },
         confirmButton = {
@@ -80,7 +84,12 @@ fun SettingsDialog(
                 if (dim == null || dim !in 1..12) {
                     dimensionError = true
                 } else {
-                    onConfirm(GridSettings(dimension = dim, imageUrl = imageUrl.trim()))
+                    onConfirm(GridSettings(
+                        dimension = dim,
+                        imageUrl = imageUrl.trim(),
+                        scenario = currentSettings.scenario,
+                        scenarioActive = currentSettings.scenarioActive
+                    ))
                 }
             }) {
                 Text("OK")
@@ -92,4 +101,22 @@ fun SettingsDialog(
             }
         }
     )
+
+    if (showScenarioEditor) {
+        ScenarioEditor(
+            scenario = currentSettings.scenario,
+            scenarioActive = currentSettings.scenarioActive,
+            dimension = dimensionText.toIntOrNull() ?: currentSettings.dimension,
+            onDismiss = { showScenarioEditor = false },
+            onSave = { scenario, active ->
+                showScenarioEditor = false
+                onConfirm(GridSettings(
+                    dimension = dimensionText.toIntOrNull() ?: currentSettings.dimension,
+                    imageUrl = imageUrl.trim(),
+                    scenario = scenario,
+                    scenarioActive = active
+                ))
+            }
+        )
+    }
 }
