@@ -20,10 +20,12 @@ import androidx.compose.ui.Modifier
 @Composable
 fun GridOverlay(
     dimension: Int,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    resetTrigger: Int = 0,
+    onActiveCellsChanged: ((Set<Int>) -> Unit)? = null
 ) {
-    // Reset active cells whenever the dimension changes
-    var activeCells by remember(dimension) { mutableStateOf(emptySet<Int>()) }
+    // Reset active cells whenever the dimension or resetTrigger changes
+    var activeCells by remember(dimension, resetTrigger) { mutableStateOf(emptySet<Int>()) }
 
     BoxWithConstraints(modifier = modifier) {
         val cellWidth = maxWidth / dimension
@@ -44,6 +46,7 @@ fun GridOverlay(
                                     } else {
                                         activeCells + index
                                     }
+                                    onActiveCellsChanged?.invoke(activeCells)
                                 },
                                 modifier = Modifier
                                     .width(cellWidth)

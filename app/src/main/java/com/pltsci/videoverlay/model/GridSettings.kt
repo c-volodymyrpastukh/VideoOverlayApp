@@ -2,5 +2,7 @@ package com.pltsci.videoverlay.model
 
 data class GridSettings(
     val dimension: Int = 4,
-    val imageUrl: String = ""
+    val imageUrl: String = "",
+    val scenario: Scenario? = null,
+    val scenarioActive: Boolean = false
 )
