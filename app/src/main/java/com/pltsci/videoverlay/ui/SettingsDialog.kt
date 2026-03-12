@@ -32,7 +32,7 @@ fun SettingsDialog(
     onConfirm: (GridSettings) -> Unit
 ) {
     var dimensionText by remember { mutableStateOf(currentSettings.dimension.toString()) }
-    var imageUrl by remember { mutableStateOf(if(currentSettings.imageUrl.isEmpty()) "https://apptweak-blog.imgix.net/2025/04/1-Headspace-AS.PNG" else currentSettings.imageUrl) }
+    var imageUrl by remember { mutableStateOf("") }
     var dimensionError by remember { mutableStateOf(false) }
     var showScenarioEditor by remember { mutableStateOf(false) }
     val clipboardManager = LocalClipboardManager.current

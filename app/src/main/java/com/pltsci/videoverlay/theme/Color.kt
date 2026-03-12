@@ -7,8 +7,8 @@ val CellDefaultBackground = Color.White.copy(alpha = 0.00f)
 val CellDefaultBorder = Color.White.copy(alpha = 0.10f)
 
 // Cell active state: 40% green fill, solid green border
-val CellActiveBackground = Color.White.copy(alpha = 0.20f)
-val CellActiveBorder = Color.White.copy(alpha = 0.30f)
+val CellActiveBackground = Color.White.copy(alpha = 0.40f)
+val CellActiveBorder = Color.White.copy(alpha = 0.50f)
 
 // Cell label: non-bright gray
 val CellLabelColor = Color.White.copy(alpha = 1.0f)
