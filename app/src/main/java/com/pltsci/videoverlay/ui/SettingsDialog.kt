@@ -15,6 +15,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.pltsci.videoverlay.model.GridSettings
 
 @Composable
@@ -29,7 +30,7 @@ fun SettingsDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Configure Grid") },
+        title = { Text("Configure Grid", fontSize = 22.sp) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 OutlinedTextField(
@@ -38,7 +39,7 @@ fun SettingsDialog(
                         dimensionText = it
                         dimensionError = false
                     },
-                    label = { Text("Grid dimension (1–12)") },
+                    label = { Text("Grid dimension (1\u201312)", fontSize = 18.sp) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     isError = dimensionError,
                     supportingText = if (dimensionError) {
@@ -49,7 +50,7 @@ fun SettingsDialog(
                 OutlinedTextField(
                     value = imageUrl,
                     onValueChange = { imageUrl = it },
-                    label = { Text("Image URL (optional)") },
+                    label = { Text("Image URL (optional)", fontSize = 18.sp) },
                     singleLine = true
                 )
             }

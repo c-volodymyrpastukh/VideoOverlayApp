@@ -40,7 +40,7 @@ fun GridCell(
 
     Box(
         modifier = modifier
-            .border(4.dp, borderColor)
+            .border(6.dp, borderColor)
             .background(backgroundColor)
             .clickable { onClick() },
         contentAlignment = Alignment.Center
@@ -48,7 +48,7 @@ fun GridCell(
         Text(
             text = label,
             color = CellLabelColor,
-            fontSize = 48.sp,
+            fontSize = 64.sp,
             fontWeight = FontWeight.Bold
         )
     }

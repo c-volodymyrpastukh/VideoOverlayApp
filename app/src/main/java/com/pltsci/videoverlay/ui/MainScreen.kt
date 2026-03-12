@@ -60,12 +60,12 @@ fun MainScreen(repository: SettingsRepository) {
                     .padding(top = 64.dp, end = 16.dp)
                     .background(SettingsBackground, shape = RoundedCornerShape(6.dp))
                     .clickable { showDialog = true }
-                    .padding(horizontal = 14.dp, vertical = 8.dp)
+                    .padding(horizontal = 20.dp, vertical = 12.dp)
             ) {
                 Text(
                     text = "Settings",
                     color = Color.White,
-                    fontSize = 20.sp
+                    fontSize = 28.sp
                 )
             }
         }
