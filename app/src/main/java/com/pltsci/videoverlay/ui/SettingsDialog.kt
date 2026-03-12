@@ -19,6 +19,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalClipboardManager
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -38,7 +39,7 @@ fun SettingsDialog(
 
     AlertDialog(
         onDismissRequest = onDismiss,
-        title = { Text("Configure Grid", fontSize = 22.sp) },
+        title = { Text("Configure Grid", fontSize = 33.sp) },
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
                 OutlinedTextField(
@@ -47,11 +48,12 @@ fun SettingsDialog(
                         dimensionText = it
                         dimensionError = false
                     },
-                    label = { Text("Grid dimension (1\u201312)", fontSize = 18.sp) },
+                    textStyle = TextStyle(fontSize = 24.sp),
+                    label = { Text("Grid dimension (1\u201312)", fontSize = 27.sp) },
                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Number),
                     isError = dimensionError,
                     supportingText = if (dimensionError) {
-                        { Text("Enter a number between 1 and 12") }
+                        { Text("Enter a number between 1 and 12", fontSize = 21.sp) }
                     } else null,
                     singleLine = true
                 )
@@ -62,7 +64,8 @@ fun SettingsDialog(
                     OutlinedTextField(
                         value = imageUrl,
                         onValueChange = { imageUrl = it },
-                        label = { Text("Image URL (optional)", fontSize = 18.sp) },
+                        textStyle = TextStyle(fontSize = 24.sp),
+                        label = { Text("Image URL (optional)", fontSize = 27.sp) },
                         singleLine = true,
                         modifier = Modifier.weight(1f)
                     )
@@ -70,11 +73,11 @@ fun SettingsDialog(
                     TextButton(onClick = {
                         clipboardManager.getText()?.text?.let { imageUrl = it }
                     }) {
-                        Text("Paste")
+                        Text("Paste", fontSize = 24.sp)
                     }
                 }
                 TextButton(onClick = { showScenarioEditor = true }) {
-                    Text("Configure Scenario", fontSize = 18.sp)
+                    Text("Configure Scenario", fontSize = 27.sp)
                 }
             }
         },
@@ -92,12 +95,12 @@ fun SettingsDialog(
                     ))
                 }
             }) {
-                Text("OK")
+                Text("OK", fontSize = 24.sp)
             }
         },
         dismissButton = {
             TextButton(onClick = onDismiss) {
-                Text("Cancel")
+                Text("Cancel", fontSize = 24.sp)
             }
         }
     )
