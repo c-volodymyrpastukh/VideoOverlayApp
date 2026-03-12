@@ -2,6 +2,10 @@ package com.pltsci.videoverlay.ui
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.OutlinedTextField
@@ -12,7 +16,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.text.input.ImeAction
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalClipboardManager
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -27,6 +33,7 @@ fun SettingsDialog(
     var dimensionText by remember { mutableStateOf(currentSettings.dimension.toString()) }
     var imageUrl by remember { mutableStateOf(if(currentSettings.imageUrl.isEmpty()) "https://apptweak-blog.imgix.net/2025/04/1-Headspace-AS.PNG" else currentSettings.imageUrl) }
     var dimensionError by remember { mutableStateOf(false) }
+    val clipboardManager = LocalClipboardManager.current
 
     AlertDialog(
         onDismissRequest = onDismiss,
@@ -47,12 +54,24 @@ fun SettingsDialog(
                     } else null,
                     singleLine = true
                 )
-                OutlinedTextField(
-                    value = imageUrl,
-                    onValueChange = { imageUrl = it },
-                    label = { Text("Image URL (optional)", fontSize = 18.sp) },
-                    singleLine = true
-                )
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.fillMaxWidth()
+                ) {
+                    OutlinedTextField(
+                        value = imageUrl,
+                        onValueChange = { imageUrl = it },
+                        label = { Text("Image URL (optional)", fontSize = 18.sp) },
+                        singleLine = true,
+                        modifier = Modifier.weight(1f)
+                    )
+                    Spacer(modifier = Modifier.width(8.dp))
+                    TextButton(onClick = {
+                        clipboardManager.getText()?.text?.let { imageUrl = it }
+                    }) {
+                        Text("Paste")
+                    }
+                }
             }
         },
         confirmButton = {
